@@ -9,6 +9,26 @@ def getData(file):
 #Input: file name
 #Ouput: return a list of dictionary objects where
 #the keys are from the first row in the data. and the values are each of the other rows
+	inFile = open(file, "r")
+	line = inFile.readline()
+	listOfObjcts = []
+	d = {}
+	firstLine = line.split(",")
+
+	# create all keys for dictionary
+	for i in range(len(firstLine)):
+		d[firstLine[i]] = ""
+
+	# for each line, assign each key to a value
+	lines = inFile.readlines()
+	inFile.close()
+	for line in lines:
+		values = line.split(",")
+		for i in range(len(value)):
+			d.update(firstLine[i] = values[i])
+		# add dictionary to list
+		listOfObjects.append(d)
+	return listOfObjects
 
 	pass
 
