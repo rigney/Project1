@@ -161,24 +161,28 @@ def findMonth(a):
 
 
 def mySortPrint(a,col,fileName):
-	# Sort based on key/column
-	#Input: list of dictionaries and col (key) to sort on
-	#Output: Return the first item in the sorted list as a string of just: firstName lastName
-	firstValue = data[0][col]
-	dictOfFirstValue = data[0]
-	# loop through each data set and keep track of lowest alphabetically ranked col and what dict it belongs to
-	for i in range(len(data)):
-		if firstValue > data[i][col]:
-			firstValue = data[i][col]
-			dictOfFirstValue = data[i]
-	return dictOfFirstValue["First"] + " " + dictOfFirstValue["Last"]
-#Similar to mySort, but instead of returning single
-#Student, the sorted data is saved to a csv file.
-# as fist,last,email
-#Input: list of dictionaries, col (key) to sort by and output file name
-#Output: No return value, but the file is written
+	#Similar to mySort, but instead of returning single
+	#Student, the sorted data is saved to a csv file.
+	# as fist,last,email
+	#Input: list of dictionaries, col (key) to sort by and output file name
+	#Output: No return value, but the file is written
 
-	pass
+	file = open(fileName, "w")
+
+	# loops through data until all dictionaries have been sorted alphabetically by col
+	while len(a) != 0:
+		firstValue = a[0][col]
+		dictOfFirstValue = a[0]
+		# loop through each data set and keep track of lowest alphabetically ranked col and what dict it belongs to
+		for i in range(len(a)):
+			if firstValue > a[i][col]:
+				firstValue = a[i][col]
+				dictOfFirstValue = a[i]
+		del a[i]
+		# write dictionary to file
+		file.write(dictOfFirstValue["First"] + "," + dictOfFirstValue["Last"]+ "," + dictOfFirstValue["Email"])
+	file.close()
+
 
 def findAge(a):
 # def findAge(a):
