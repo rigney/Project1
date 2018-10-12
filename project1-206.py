@@ -5,57 +5,168 @@ from datetime import date
 
 
 def getData(file):
-# get a list of dictionary objects from the file
-#Input: file name
-#Ouput: return a list of dictionary objects where
-#the keys are from the first row in the data. and the values are each of the other rows
+	# get a list of dictionary objects from the file
+	#Input: file name
+	#Ouput: return a list of dictionary objects where
+	#the keys are from the first row in the data. and the values are each of the other rows
 	inFile = open(file, "r")
-	line = inFile.readline()
-	listOfObjcts = []
-	d = {}
-	firstLine = line.split(",")
-
-	# create all keys for dictionary
-	for i in range(len(firstLine)):
-		d[firstLine[i]] = ""
+	singleLine = inFile.readline()
+	firstLine = singleLine.split(",")
+	listOfObjects = []
 
 	# for each line, assign each key to a value
 	lines = inFile.readlines()
 	inFile.close()
 	for line in lines:
+		d = {}
+		# create all keys for dictionary
+		for i in range(len(firstLine)):
+			firstLine[i] = firstLine[i].replace("\n","")
+			d[firstLine[i]] = ""
+
 		values = line.split(",")
-		for i in range(len(value)):
-			d.update(firstLine[i] = values[i])
+
+		for i in range(len(values)):
+			value = str(values[i])
+			value = value.replace("\n","")
+			d[firstLine[i]] = value
+
 		# add dictionary to list
 		listOfObjects.append(d)
+
 	return listOfObjects
 
-	pass
 
 def mySort(data,col):
-# Sort based on key/column
-#Input: list of dictionaries and col (key) to sort on
-#Output: Return the first item in the sorted list as a string of just: firstName lastName
+	# Sort based on key/column
+	#Input: list of dictionaries and col (key) to sort on
+	#Output: Return the first item in the sorted list as a string of just: firstName lastName
+	firstValue = data[0][col]
+	dictOfFirstValue = data[0]
+	# loop through each data set and keep track of lowest alphabetically ranked col and what dict it belongs to
+	for i in range(len(data)):
+		if firstValue > data[i][col]:
+			firstValue = data[i][col]
+			dictOfFirstValue = data[i]
 
-	pass
+	return dictOfFirstValue["First"] + " " + dictOfFirstValue["Last"]
 
 
 def classSizes(data):
-# Create a histogram
-# Input: list of dictionaries
-# Output: Return a list of tuples sorted by the number of students in that class in
-# descending order
-# [('Senior', 26), ('Junior', 25), ('Freshman', 21), ('Sophomore', 18)]
+	# Create a histogram
+	# Input: list of dictionaries
+	# Output: Return a list of tuples sorted by the number of students in that class in
+	# descending order
+	# [('Senior', 26), ('Junior', 25), ('Freshman', 21), ('Sophomore', 18)]
 
-	pass
+	t = ["", "", "", "" ]
+	freshmanCount = 0
+	sophomoreCount = 0
+	juniorCount = 0
+	seniorCount = 0
+
+	# counts how many people each class has 
+	for i in range(len(data)):
+		if data[i]["Class"] == "Freshman":
+			freshmanCount += 1
+		elif data[i]["Class"] == "Sophomore":
+			sophomoreCount += 1
+		elif data[i]["Class"] == "Junior":
+			juniorCount += 1
+		else:
+			seniorCount += 1
+	# adds each grade's count as a tuple to the list
+	t[0] = ("Freshman", freshmanCount)
+	t[1] = ("Sophomore", sophomoreCount)
+	t[2] = ("Junior", juniorCount)	
+	t[3] = ("Senior", seniorCount)
+
+	# sorts the tuples by the highest grade count
+	t.sort(key=lambda tup: tup[1], reverse = True)
+	                                                       
+	return t
 
 
 def findMonth(a):
-# Find the most common birth month form this data
-# Input: list of dictionaries
-# Output: Return the month (1-12) that had the most births in the data
+	# Find the most common birth month form this data
+	# Input: list of dictionaries
+	# Output: Return the month (1-12) that had the most births in the data
 
-	pass
+	# variables to keep track of amount of times each month is included in data
+	janCount = 0
+	febCount = 0
+	marCount = 0
+	aprCount = 0
+	mayCount = 0
+	junCount = 0
+	julCount = 0
+	augCount = 0
+	septCount = 0
+	octCount = 0
+	novCount = 0
+	decCount = 0
+
+	for i in range(len(a)):
+		dob = a[i]["DOB"].split("/")
+		month = dob[0]
+
+		if month == "1":
+			janCount += 1
+		elif month == "2":
+			febCount += 1
+		elif month == "3":
+			marCount += 1
+		elif month == "4":
+			aprCount += 1
+		elif month == "5":
+			mayCount += 1
+		elif month == "6":
+			junCount += 1
+		elif month == "7":
+			julCount += 1
+		elif month == "8":
+			augCount += 1
+		elif month == "9":
+			septCount += 1	
+		elif month == "10":
+			octCount += 1
+		elif month == "11":
+			novCount += 1
+		else:
+			decCount += 1
+	t = ["", "", "", "", "", "", "", "", "", "", "", ""]
+
+	t[0] = (1, janCount)
+	t[1] = (2, febCount)
+	t[2] = (3, marCount)
+	t[3] = (4, aprCount)
+	t[4] = (5, mayCount)
+	t[5] = (6, junCount)
+	t[6] = (7, julCount)
+	t[7] = (8, augCount)
+	t[8] = (9, septCount)
+	t[9] = (10, octCount)
+	t[10] = (11, novCount)
+	t[11] = (12, decCount)
+
+	print(t[0][0])
+	print(t[0][1])
+	print(t[1][0])
+	print(t[1][1])
+	print(t[2][0])
+	print(t[2][1])
+	print("")
+	
+	# sorts the tuples by the most frequent month to least frequent month
+	t.sort(key=lambda tup: tup[1], reverse = True)
+	print(t[0][0])
+	print(t[0][1])
+	print(t[1][0])
+	print(t[1][1])
+	print(t[2][0])
+	print(t[2][1])
+	return t[0][0]
+
 
 def mySortPrint(a,col,fileName):
 #Similar to mySort, but instead of returning single
