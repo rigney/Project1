@@ -75,13 +75,14 @@ def classSizes(data):
 			juniorCount += 1
 		else:
 			seniorCount += 1
+
 	# adds each grade's count as a tuple to the list
 	t[0] = ("Freshman", freshmanCount)
 	t[1] = ("Sophomore", sophomoreCount)
 	t[2] = ("Junior", juniorCount)	
 	t[3] = ("Senior", seniorCount)
 
-	# sorts the tuples by the highest grade count
+	# sorts the tuples by the highest to lowest grade count
 	t.sort(key=lambda tup: tup[1], reverse = True)
 	                                                       
 	return t
@@ -106,6 +107,7 @@ def findMonth(a):
 	novCount = 0
 	decCount = 0
 
+	# for each month, counts how many people were born in it
 	for i in range(len(a)):
 		dob = a[i]["DOB"].split("/")
 		month = dob[0]
@@ -134,8 +136,10 @@ def findMonth(a):
 			novCount += 1
 		else:
 			decCount += 1
+
 	t = ["", "", "", "", "", "", "", "", "", "", "", ""]
 
+	# adds each month's count as a tuple to the list
 	t[0] = (1, janCount)
 	t[1] = (2, febCount)
 	t[2] = (3, marCount)
@@ -149,26 +153,25 @@ def findMonth(a):
 	t[10] = (11, novCount)
 	t[11] = (12, decCount)
 
-	print(t[0][0])
-	print(t[0][1])
-	print(t[1][0])
-	print(t[1][1])
-	print(t[2][0])
-	print(t[2][1])
-	print("")
-	
-	# sorts the tuples by the most frequent month to least frequent month
+
+	# sorts the tuples by the highest to lowest month count 
 	t.sort(key=lambda tup: tup[1], reverse = True)
-	print(t[0][0])
-	print(t[0][1])
-	print(t[1][0])
-	print(t[1][1])
-	print(t[2][0])
-	print(t[2][1])
+
 	return t[0][0]
 
 
 def mySortPrint(a,col,fileName):
+	# Sort based on key/column
+	#Input: list of dictionaries and col (key) to sort on
+	#Output: Return the first item in the sorted list as a string of just: firstName lastName
+	firstValue = data[0][col]
+	dictOfFirstValue = data[0]
+	# loop through each data set and keep track of lowest alphabetically ranked col and what dict it belongs to
+	for i in range(len(data)):
+		if firstValue > data[i][col]:
+			firstValue = data[i][col]
+			dictOfFirstValue = data[i]
+	return dictOfFirstValue["First"] + " " + dictOfFirstValue["Last"]
 #Similar to mySort, but instead of returning single
 #Student, the sorted data is saved to a csv file.
 # as fist,last,email
