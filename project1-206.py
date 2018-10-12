@@ -170,19 +170,25 @@ def mySortPrint(a,col,fileName):
 	file = open(fileName, "w")
 
 	# loops through data until all dictionaries have been sorted alphabetically by col
-	while len(a) != 0:
+	while len(a) > 0:
+		dictToDelete = 0
 		firstValue = a[0][col]
 		dictOfFirstValue = a[0]
-		# loop through each data set and keep track of lowest alphabetically ranked col and what dict it belongs to
+		# repeatedly loop through data and keep track of lowest alphabetically ranked col and what dict it belongs to
 		for i in range(len(a)):
 			if firstValue > a[i][col]:
 				firstValue = a[i][col]
 				dictOfFirstValue = a[i]
-		del a[i]
-		# write dictionary to file
-		file.write(dictOfFirstValue["First"] + "," + dictOfFirstValue["Last"]+ "," + dictOfFirstValue["Email"])
-	file.close()
+				dictToDelete = i
+		
+		# write the dictionary with the lowest alphabetically ranked col to the file
+		file.write(dictOfFirstValue["First"] + "," + dictOfFirstValue["Last"]+ "," + dictOfFirstValue["Email"] + "\n")
 
+		# del the dictionary you've already written to the file
+		del a[dictToDelete]
+
+	file.close()
+		
 
 def findAge(a):
 # def findAge(a):
