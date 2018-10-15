@@ -153,7 +153,6 @@ def findMonth(a):
 	t[10] = (11, novCount)
 	t[11] = (12, decCount)
 
-
 	# sorts the tuples by the highest to lowest month count 
 	t.sort(key=lambda tup: tup[1], reverse = True)
 
